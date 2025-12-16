@@ -1,0 +1,11 @@
+{
+  "extends": "@workspace/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": "../lib",
+    "paths": {
+      "@n8n/schema/*": ["../lib/src/*"]
+    }
+  },
+  "include": ["../lib"],
+  "exclude": ["../lib/node_modules", "../lib/dist"]
+}
