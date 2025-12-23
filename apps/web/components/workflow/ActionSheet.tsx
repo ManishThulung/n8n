@@ -47,11 +47,11 @@ import z from "zod";
 const ActionSheet = ({
   isActionSheetOpen,
   setIsActionSheetOpen,
-  setNodes,
+  handleAdd,
 }: {
   isActionSheetOpen: boolean;
-  setNodes: Dispatch<SetStateAction<Node[]>>;
   setIsActionSheetOpen: Dispatch<SetStateAction<boolean>>;
+  handleAdd: (nodeInfo: Node) => void;
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
@@ -65,19 +65,18 @@ const ActionSheet = ({
   const method = form.watch("method");
 
   function onSubmit(values: z.infer<typeof httpActionSchema>) {
-    const data: Node = {
-      id: "schedule",
-      type: "schedule-trigger",
+    const data = {
+      id: Math.random().toString(),
+      type: "http-action",
       data: {
-        label: `Runs on each ${values.minutes} minutes`,
+        label: `Makes a http request`,
         metadata: {
           values,
         },
-        nodeType: "Trigger",
+        nodeType: "Action",
       },
-      position: { x: 100, y: 100 },
     };
-    setNodes((node) => [...node, data]);
+    handleAdd(data as unknown as Node);
     setIsDialogOpen(false);
     setIsActionSheetOpen(false);
   }
@@ -101,7 +100,6 @@ const ActionSheet = ({
       },
       position: { x: 100, y: 100 },
     };
-    setNodes((node) => [...node, data]);
   };
   return (
     <Sheet open={isActionSheetOpen} onOpenChange={setIsActionSheetOpen}>
@@ -241,7 +239,7 @@ const ActionSheet = ({
                 </AlertDialogHeader>
               </AlertDialogContent>
             </AlertDialog>
-            <Button onClick={handleManualTrigger}>Manual</Button>
+            <Button onClick={handleManualTrigger}>test</Button>
           </div>
         </SheetHeader>
       </SheetContent>

@@ -1,6 +1,7 @@
 import { Providers } from "@/components/providers";
 import "@workspace/ui/globals.css";
 import { Geist } from "next/font/google";
+import "@xyflow/react/dist/style.css";
 
 const fontSans = Geist({
   subsets: ["latin"],
