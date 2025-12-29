@@ -8,7 +8,8 @@
   },
   "exports": {
     "./zod/action/*": "./src/action/*.ts",
-    "./zod/trigger/*": "./src/trigger/*.ts"
+    "./zod/trigger/*": "./src/trigger/*.ts",
+    "./zod/backend/*": "./src/backend/*.ts"
   },
   "keywords": [],
   "author": "",

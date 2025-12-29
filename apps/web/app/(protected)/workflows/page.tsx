@@ -1,7 +1,7 @@
 import React from "react";
 
 const page = () => {
-  return <div>my home page. build a landing page herre</div>;
+  return <div>this is my workflow page</div>;
 };
 
 export default page;
