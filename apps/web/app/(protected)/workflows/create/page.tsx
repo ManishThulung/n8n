@@ -1,6 +1,13 @@
 "use client";
 
+import HttpAction from "@/components/react-flow/actions/http-request";
 import { CustomEdge } from "@/components/react-flow/custome-edge";
+import TriggerManual from "@/components/react-flow/triggers/manual";
+import TriggerSchedule from "@/components/react-flow/triggers/scheduler";
+import ActionSheet from "@/components/workflow/ActionSheet";
+import TriggerSheet from "@/components/workflow/TriggerSheet";
+import { api } from "@/config/api";
+import { Button } from "@workspace/ui/components/button";
 import {
   ReactFlow,
   addEdge,
@@ -15,13 +22,6 @@ import {
   type OnNodesChange,
 } from "@xyflow/react";
 import { useCallback, useState } from "react";
-import TriggerSchedule from "@/components/react-flow/triggers/scheduler";
-import TriggerSheet from "@/components/workflow/TriggerSheet";
-import TriggerManual from "@/components/react-flow/triggers/manual";
-import ActionSheet from "@/components/workflow/ActionSheet";
-import HttpAction from "@/components/react-flow/actions/http-request";
-import { Button } from "@workspace/ui/components/button";
-import { request } from "@/config/request";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -93,7 +93,7 @@ export default function Page() {
   };
 
   const handleExecute = async () => {
-    const res = await request.post("/workflow", { nodes, edges });
+    const res = await api.post("/workflow", { nodes, edges });
     console.log(res, "rressssssssssssssssssss");
   };
   return (

@@ -103,7 +103,7 @@ const TriggerSheet = ({
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger className="w-full h-full flex justify-center items-center">
-        Start workflow
+        Create workflow
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

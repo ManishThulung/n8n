@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BACKEND_URI = process.env.BACKEND_URI || "http://localhost:8000";
 
-export const request = axios.create({
+export const api = axios.create({
   withCredentials: true,
   baseURL: BACKEND_URI,
   timeout: 30000,
