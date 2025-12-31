@@ -1,5 +1,4 @@
 export enum TriggerIntervals {
-  SECONDS = "seconds",
   MINUTES = "minutes",
   HOURS = "hours",
   DAYS = "days",

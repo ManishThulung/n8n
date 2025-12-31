@@ -6,6 +6,7 @@ import cors from "cors";
 import { generateToken } from "./lib/jwt";
 import cookieParser from "cookie-parser";
 import { authenticate } from "./middleware/auth.middleware";
+import { publishWorkflowJob } from "./queue/producer";
 
 const app = express();
 app.use(cookieParser());
@@ -108,15 +109,30 @@ app.get("/workflow", authenticate, async (req: any, res: Response) => {
   }
 });
 
-app.post("/workflow", async (req: Request, res: Response) => {
+app.post("/workflow", authenticate, async (req: any, res: Response) => {
   const { nodes, edges } = req.body;
+  const user = req.user;
+
+  const trigger = nodes.find(
+    (node: any) =>
+      node.type == "schedule-trigger" && node.data.nodeType == "Trigger"
+  );
+
+  const executionTimeInMs = trigger.data.metadata.executionTimeInMs;
 
   try {
-    await Workflow.create({
-      userId: "6952ca0481e794687cc35b83",
+    const workflow = await Workflow.create({
+      userId: user.id,
       edges,
       nodes,
     });
+    if (workflow) {
+      await publishWorkflowJob(
+        workflow._id.toString(),
+        user.id,
+        executionTimeInMs
+      );
+    }
     res.status(201).json({
       success: true,
       data: null,

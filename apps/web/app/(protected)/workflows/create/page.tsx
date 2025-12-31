@@ -1,6 +1,6 @@
 "use client";
 
-import HttpAction from "@/components/react-flow/actions/http-request";
+import CustomeActionNode from "@/components/react-flow/actions/http-request";
 import { CustomEdge } from "@/components/react-flow/custome-edge";
 import TriggerManual from "@/components/react-flow/triggers/manual";
 import TriggerSchedule from "@/components/react-flow/triggers/scheduler";
@@ -38,7 +38,8 @@ const edgeTypes = {
 const nodeTypes = {
   "schedule-trigger": TriggerSchedule,
   "manual-trigger": TriggerManual,
-  "http-action": HttpAction,
+  "http-action": CustomeActionNode,
+  "email-action": CustomeActionNode,
 };
 
 export default function Page() {

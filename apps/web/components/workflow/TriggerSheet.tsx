@@ -62,13 +62,36 @@ const TriggerSheet = ({
   const interval = form.watch("interval");
 
   function onSubmit(values: z.infer<typeof scheduleTriggerSchema>) {
+    let executionTimeInMs = 0;
+    switch (values.interval) {
+      case "minutes":
+        executionTimeInMs = Number(values?.minutes) * 60 * 1000;
+        break;
+
+      case "hours":
+        executionTimeInMs = Number(values?.hours) * 60 * 60 * 1000;
+        break;
+
+      case "days":
+        executionTimeInMs = Number(values?.days) * 24 * 60 * 60 * 1000;
+        break;
+
+      case "weeks":
+        executionTimeInMs = Number(values?.weeks) * 7 * 24 * 60 * 60 * 1000;
+        break;
+
+      case "months":
+        executionTimeInMs = Number(values?.months) * 30 * 24 * 60 * 60 * 1000;
+        break;
+    }
     const data: Node = {
       id: "schedule",
       type: "schedule-trigger",
       data: {
         label: `Runs on each ${values.minutes} minutes`,
         metadata: {
-          values,
+          interval: values.interval,
+          executionTimeInMs,
         },
         nodeType: "Trigger",
       },
@@ -163,24 +186,6 @@ const TriggerSheet = ({
                           </FormItem>
                         )}
                       />
-                      {interval === TriggerIntervals.SECONDS && (
-                        <FormField
-                          control={form.control}
-                          name="seconds"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Seconds between triggers</FormLabel>
-                              <FormControl>
-                                <Input placeholder="30" {...field} />
-                              </FormControl>
-                              <FormDescription>
-                                Must be between 1-59.
-                              </FormDescription>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      )}
 
                       {interval === TriggerIntervals.MINUTES && (
                         <FormField
@@ -202,40 +207,79 @@ const TriggerSheet = ({
                       )}
 
                       {interval === TriggerIntervals.HOURS && (
-                        <>
-                          <FormField
-                            control={form.control}
-                            name="hours"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Hours between triggers</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="1" {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                  Must be in range 1-23.
-                                </FormDescription>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="minutes"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Minutes between triggers</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="5" {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                  Must be in range 1-59.
-                                </FormDescription>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </>
+                        <FormField
+                          control={form.control}
+                          name="hours"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Hours between triggers</FormLabel>
+                              <FormControl>
+                                <Input placeholder="1" {...field} />
+                              </FormControl>
+                              <FormDescription>
+                                Must be in range 1-23.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+
+                      {interval === TriggerIntervals.DAYS && (
+                        <FormField
+                          control={form.control}
+                          name="days"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Hours between triggers</FormLabel>
+                              <FormControl>
+                                <Input placeholder="1" {...field} />
+                              </FormControl>
+                              <FormDescription>
+                                Must be in range 1-6.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+
+                      {interval === TriggerIntervals.WEEKS && (
+                        <FormField
+                          control={form.control}
+                          name="weeks"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Hours between triggers</FormLabel>
+                              <FormControl>
+                                <Input placeholder="1" {...field} />
+                              </FormControl>
+                              <FormDescription>
+                                Must be in range 1-4.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+
+                      {interval === TriggerIntervals.MONTHS && (
+                        <FormField
+                          control={form.control}
+                          name="months"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Hours between triggers</FormLabel>
+                              <FormControl>
+                                <Input placeholder="1" {...field} />
+                              </FormControl>
+                              <FormDescription>
+                                Must be in range 1-11.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       )}
 
                       <div className="flex gap-4 justify-end items-center w-full">

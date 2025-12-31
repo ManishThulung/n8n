@@ -19,3 +19,9 @@ export const httpActionSchema = z
       });
     }
   });
+
+export const emailActionSchema = z.object({
+  subject: z.string(),
+  to: z.string(),
+  body: z.string(),
+});
