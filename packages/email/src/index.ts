@@ -45,7 +45,7 @@ export function createEmailClient(config: {
       html,
     }: EmailPayload): Promise<EmailSendResult> {
       const info = await transporter.sendMail({
-        from: `Appsha <${config.user}>`,
+        from: `n8n <${config.user}>`,
         to,
         subject,
         html,

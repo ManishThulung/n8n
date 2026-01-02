@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "schedule-worker",
   "version": "1.0.0",
-  "description": "main server for n8n workflow",
+  "description": "wworker server to execute scheduled workflow",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -15,9 +15,10 @@
   "packageManager": "pnpm@10.4.1",
   "dependencies": {
     "@n8n/db": "workspace:*",
-    "@n8n/queue": "workspace:*",
     "@n8n/email": "workspace:*",
+    "@n8n/queue": "workspace:*",
     "amqplib": "^0.10.9",
+    "axios": "^1.13.2",
     "dotenv": "^17.2.3",
     "mongoose": "^9.0.2"
   },
